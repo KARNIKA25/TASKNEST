@@ -1,0 +1,373 @@
+{
+  "info": {
+    "_postman_id": "c8f29d10-86b2-4d43-98ef-7e9b049d5001",
+    "name": "TaskNest REST API Collection",
+    "description": "Postman API Collection for TaskNest — Personal To-Do and Task Manager (DBMS Mini Project)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "1. User APIs",
+      "item": [
+        {
+          "name": "Create User",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Alex Johnson\",\n  \"email\": \"alex.johnson@example.com\"\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users"]
+            }
+          }
+        },
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/users",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "users"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Task List APIs",
+      "item": [
+        {
+          "name": "Create Task List",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Academics\",\n  \"userId\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/lists",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "lists"]
+            }
+          }
+        },
+        {
+          "name": "Get All Task Lists",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/lists",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "lists"]
+            }
+          }
+        },
+        {
+          "name": "Get Task List By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/lists/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "lists", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Task List",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"University Academics\",\n  \"userId\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/lists/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "lists", "1"]
+            }
+          }
+        },
+        {
+          "name": "Delete Task List",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:8080/api/lists/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "lists", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Task APIs",
+      "item": [
+        {
+          "name": "Create Task",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Complete DBMS Mini Project Report\",\n  \"description\": \"Write ER diagrams, schema specifications, and API documentation.\",\n  \"dueDate\": \"2026-10-05\",\n  \"priority\": \"HIGH\",\n  \"taskListId\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/tasks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "tasks"]
+            }
+          }
+        },
+        {
+          "name": "Get All Tasks",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/tasks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "tasks"]
+            }
+          }
+        },
+        {
+          "name": "Get Task By ID",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/tasks/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "tasks", "1"]
+            }
+          }
+        },
+        {
+          "name": "Update Task",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Complete DBMS Mini Project Report & PPT\",\n  \"description\": \"Include MySQL schema, Postman screenshots, and UI walkthrough.\",\n  \"dueDate\": \"2026-10-06\",\n  \"priority\": \"HIGH\",\n  \"taskListId\": 1,\n  \"completed\": false\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/tasks/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "tasks", "1"]
+            }
+          }
+        },
+        {
+          "name": "Mark Task As Complete",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "http://localhost:8080/api/tasks/1/complete",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "tasks", "1", "complete"]
+            }
+          }
+        },
+        {
+          "name": "Mark Task As Incomplete",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "http://localhost:8080/api/tasks/1/incomplete",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "tasks", "1", "incomplete"]
+            }
+          }
+        },
+        {
+          "name": "Get Today Tasks",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/tasks/today",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "tasks", "today"]
+            }
+          }
+        },
+        {
+          "name": "Get Overdue Tasks",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/tasks/overdue",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "tasks", "overdue"]
+            }
+          }
+        },
+        {
+          "name": "Get Completed Tasks",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/tasks/completed",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "tasks", "completed"]
+            }
+          }
+        },
+        {
+          "name": "Move Task to Another List",
+          "request": {
+            "method": "PUT",
+            "url": {
+              "raw": "http://localhost:8080/api/tasks/1/move/2",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "tasks", "1", "move", "2"]
+            }
+          }
+        },
+        {
+          "name": "Delete Task",
+          "request": {
+            "method": "DELETE",
+            "url": {
+              "raw": "http://localhost:8080/api/tasks/1",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "tasks", "1"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Validation and Error Tests",
+      "item": [
+        {
+          "name": "Test: Invalid Priority (Should Return 400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Task with invalid priority\",\n  \"priority\": \"URGENT\",\n  \"taskListId\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/tasks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "tasks"]
+            }
+          }
+        },
+        {
+          "name": "Test: Empty Task Title (Should Return 400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"\",\n  \"priority\": \"LOW\",\n  \"taskListId\": 1\n}"
+            },
+            "url": {
+              "raw": "http://localhost:8080/api/tasks",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "tasks"]
+            }
+          }
+        },
+        {
+          "name": "Test: Invalid Task ID (Should Return 404)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "http://localhost:8080/api/tasks/99999",
+              "protocol": "http",
+              "host": ["localhost"],
+              "port": "8080",
+              "path": ["api", "tasks", "99999"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

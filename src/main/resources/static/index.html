@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskNest — Personal Task Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                        <path d="M2 17l10 5 10-5"></path>
+                        <path d="M2 12l10 5 10-5"></path>
+                    </svg>
+                </div>
+                <div class="brand-text">
+                    <h2>TaskNest</h2>
+                    <span>Personal Task Manager</span>
+                </div>
+            </div>
+
+            <!-- Primary Views Navigation -->
+            <div class="nav-section">
+                <p class="section-title">VIEWS</p>
+                <ul class="nav-list">
+                    <li class="nav-item active" data-view="all" id="nav-all">
+                        <span class="nav-icon">📋</span>
+                        <span class="nav-label">All Tasks</span>
+                        <span class="badge count-badge" id="count-all">0</span>
+                    </li>
+                    <li class="nav-item" data-view="today" id="nav-today">
+                        <span class="nav-icon">⭐</span>
+                        <span class="nav-label">Today</span>
+                        <span class="badge count-badge" id="count-today">0</span>
+                    </li>
+                    <li class="nav-item" data-view="overdue" id="nav-overdue">
+                        <span class="nav-icon">⚠️</span>
+                        <span class="nav-label">Overdue</span>
+                        <span class="badge count-badge badge-danger" id="count-overdue">0</span>
+                    </li>
+                    <li class="nav-item" data-view="completed" id="nav-completed">
+                        <span class="nav-icon">✅</span>
+                        <span class="nav-label">Completed</span>
+                        <span class="badge count-badge badge-success" id="count-completed">0</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Task Lists Navigation -->
+            <div class="nav-section">
+                <div class="section-header-row">
+                    <p class="section-title">MY LISTS</p>
+                    <button class="btn-icon-small" id="btn-add-list" title="Create New List">+</button>
+                </div>
+                <ul class="nav-list list-category-items" id="task-lists-nav">
+                    <!-- Dynamic Task Lists rendered here -->
+                </ul>
+            </div>
+
+            <!-- Quick Add List Form (Inline Toggle) -->
+            <div class="add-list-inline" id="add-list-container" style="display: none;">
+                <input type="text" id="new-list-name" placeholder="List name (e.g. Academics)" maxlength="50">
+                <div class="inline-actions">
+                    <button class="btn-primary-sm" id="btn-save-list">Save</button>
+                    <button class="btn-secondary-sm" id="btn-cancel-list">Cancel</button>
+                </div>
+            </div>
+
+            <!-- System Info Footer -->
+            <div class="sidebar-footer">
+                <div class="db-status-chip">
+                    <span class="status-dot"></span>
+                    <span>MySQL Connected</span>
+                </div>
+                <small class="version-tag">DBMS Mini Project v1.0</small>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Top Header -->
+            <header class="main-header">
+                <div class="header-left">
+                    <h1 id="view-title">All Tasks</h1>
+                    <p id="view-description">Manage and organize all your daily to-dos and priorities.</p>
+                </div>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <input type="text" id="search-input" placeholder="Search tasks...">
+                    </div>
+                    <button class="btn-primary" id="btn-new-task">
+                        <span class="btn-icon">+</span> Add Task
+                    </button>
+                </div>
+            </header>
+
+            <!-- Stats Bar -->
+            <div class="stats-overview">
+                <div class="stat-card">
+                    <span class="stat-num" id="stat-total">0</span>
+                    <span class="stat-label">Total Tasks</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num text-warning" id="stat-today">0</span>
+                    <span class="stat-label">Due Today</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num text-danger" id="stat-overdue">0</span>
+                    <span class="stat-label">Overdue</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-num text-success" id="stat-completed">0</span>
+                    <span class="stat-label">Completed</span>
+                </div>
+            </div>
+
+            <!-- Task List Container -->
+            <div class="task-container" id="tasks-container">
+                <!-- Task Cards rendered dynamically -->
+            </div>
+
+            <!-- Empty State Display -->
+            <div class="empty-state" id="empty-state" style="display: none;">
+                <div class="empty-illustration">📭</div>
+                <h3>No tasks found</h3>
+                <p>There are no tasks in this view. Click <strong>"Add Task"</strong> to create one.</p>
+            </div>
+        </main>
+    </div>
+
+    <!-- Task Modal (Create / Edit) -->
+    <div class="modal-overlay" id="task-modal" style="display: none;">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 id="modal-title">Add New Task</h3>
+                <button class="modal-close" id="modal-close-btn">&times;</button>
+            </div>
+            <form id="task-form">
+                <input type="hidden" id="task-id">
+                
+                <div class="form-group">
+                    <label for="task-title-input">Task Title <span class="required">*</span></label>
+                    <input type="text" id="task-title-input" placeholder="e.g. Complete DBMS Assignment 2" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="task-desc-input">Description</label>
+                    <textarea id="task-desc-input" rows="3" placeholder="Add notes, links, or instructions..."></textarea>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group col">
+                        <label for="task-list-select">Task List <span class="required">*</span></label>
+                        <select id="task-list-select" required>
+                            <!-- Populated with lists -->
+                        </select>
+                    </div>
+
+                    <div class="form-group col">
+                        <label for="task-priority-select">Priority <span class="required">*</span></label>
+                        <select id="task-priority-select" required>
+                            <option value="LOW">LOW</option>
+                            <option value="MEDIUM" selected>MEDIUM</option>
+                            <option value="HIGH">HIGH</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="task-due-date">Due Date</label>
+                    <input type="date" id="task-due-date">
+                </div>
+
+                <div class="modal-actions">
+                    <button type="button" class="btn-secondary" id="modal-cancel-btn">Cancel</button>
+                    <button type="submit" class="btn-primary" id="modal-submit-btn">Save Task</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Move Task Modal -->
+    <div class="modal-overlay" id="move-modal" style="display: none;">
+        <div class="modal-card modal-small">
+            <div class="modal-header">
+                <h3>Move Task</h3>
+                <button class="modal-close" id="move-close-btn">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Select the new Task List for: <strong id="move-task-name"></strong></p>
+                <input type="hidden" id="move-task-id">
+                <div class="form-group" style="margin-top: 1rem;">
+                    <label for="move-target-list">Target List</label>
+                    <select id="move-target-list">
+                        <!-- Populated with lists -->
+                    </select>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button type="button" class="btn-secondary" id="move-cancel-btn">Cancel</button>
+                <button type="button" class="btn-primary" id="move-confirm-btn">Move Task</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
